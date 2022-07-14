@@ -10,13 +10,10 @@ Map<int, String> input = <int, String>{
 // Por exemplo, 'mercado' deve retornar
 // {200: Mercado DART, 300: SUPERMERCADO dart}
 
-//TODO verificar outra forma de filtrar por que essa esta duplicando o mapa
 Map<int, String> filteredMap(
     {required String filter, required Map<int, String> input}) {
-  return Map.from(input)
-    ..removeWhere(
-      (key, value) => !value.toLowerCase().contains(filter),
-    );
+  return Map.fromEntries(
+      input.entries.where((e) => e.value.toLowerCase().contains(filter)));
 }
 
 void main() {
