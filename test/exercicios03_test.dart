@@ -1,6 +1,7 @@
-// Dado um List<Map<String, dynamic>>
+@Tags(['ex03'])
 import 'package:test/test.dart';
 
+// Dado um List<Map<String, dynamic>>
 List<Map<String, dynamic>> input = <Map<String, dynamic>>[
   <String, dynamic>{'nome': 'Quinto', 'data': DateTime(2012)},
   <String, dynamic>{'nome': 'Segundo', 'data': DateTime(2010, 2)},

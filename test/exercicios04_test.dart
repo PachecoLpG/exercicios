@@ -1,3 +1,4 @@
+@Tags(['ex04'])
 import 'package:test/test.dart';
 
 List<Map<String, dynamic>> input = <Map<String, dynamic>>[

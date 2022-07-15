@@ -1,3 +1,4 @@
+@Tags(['ex06'])
 import 'package:test/test.dart';
 
 // Criar uma classe que represente uma Entrega, com data de início e fim.

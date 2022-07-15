@@ -1,3 +1,4 @@
+@Tags(['ex07'])
 import 'dart:math';
 
 import 'package:test/test.dart';

@@ -1,3 +1,4 @@
+@Tags(['ex01'])
 import 'package:test/test.dart';
 
 // Dado um Map<int,String>
