@@ -16,7 +16,27 @@ include: package:lints/recommended.yaml
 
 linter:
   rules:
-    - camel_case_types
+    always_put_control_body_on_new_line: true
+    always_specify_types: true
+    avoid_catching_erros: true
+    avoid_types_on_closure_parameters: false
+    avoid_unnecessary_containers: true
+
+    only_throw_errors: true
+    empty_catches: true
+    join_return_with_assignment: true
+    unnecessary_this: false
+    avoid_print: false # rever para publicar
+    constant_identifier_names: false
+    use_key_in_widget_constructors: false
+    require_trailing_commas: true
+    avoid_unused_constructor_parameters: true
+    sort_child_properties_last: true
+    always_declare_return_types: true
+    directives_ordering: true
+    unnecessary_getters_setters: false
+    no_leading_underscores_for_local_identifiers: false
+    library_private_types_in_public_api: false
 
 analyzer:
   exclude:
