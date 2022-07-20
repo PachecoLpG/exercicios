@@ -30,14 +30,16 @@ List<String> permute(String word, int l, int r) {
   List<String> output = <String>[];
   if (l == r) {
     output.add(word);
-  } else {
-    for (int i = l; i <= r; i++) {
-      word = swap(word, l, i);
-      output = output + permute(word, l + 1, r);
-      word = swap(word, l, i);
-    }
+    return output;
   }
-  return output.toSet().toList();
+  for (int i = l; i <= r; i++) {
+    word = swap(word, l, i);
+    if (!output.contains(word)) {
+      output = output + permute(word, l + 1, r);
+    }
+    word = swap(word, l, i);
+  }
+  return output;
 }
 
 int factorial(int i) {
@@ -103,7 +105,7 @@ void main() {
   test(
       'deve verificar se a quantidade de possiveis permutações é igual a quantidade permutada',
       () {
-    String word = 'BANANA';
+    String word = 'DART';
     List<String> permutations = <String>[];
     int output = 0;
 
