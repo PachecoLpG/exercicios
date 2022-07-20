@@ -19,7 +19,7 @@ class Entrega {
       dataInicio = DateTime.now();
       status = EntregaStatus.emAndamento;
     } else {
-      throw 'A entrega ja foi iniciada';
+      throw Exception('A entrega ja foi iniciada');
     }
   }
 
@@ -28,7 +28,7 @@ class Entrega {
       dataFim = DateTime.now();
       status = EntregaStatus.finalizada;
     } else {
-      throw 'Não é possivel finalizar entregas não iniciadas';
+      throw Exception('Não é possivel finalizar entregas não iniciadas');
     }
   }
 }
@@ -72,16 +72,13 @@ void main() {
   test('deve validar se entrega pode ser finalizada', () {
     Entrega entrega = Entrega();
 
-    expect(
-      () => entrega.finishDelivery(),
-      throwsA('Não é possivel finalizar entregas não iniciadas'),
-    );
+    expect(() => entrega.finishDelivery(), throwsA(isA<Exception>()));
   });
 
   test('deve validar se a viagem pode ser iniciada', () {
     Entrega entrega = Entrega();
     entrega.starDelivery();
 
-    expect(() => entrega.starDelivery(), throwsA('A entrega ja foi iniciada'));
+    expect(() => entrega.starDelivery(), throwsA(isA<Exception>()));
   });
 }
