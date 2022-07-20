@@ -1,4 +1,4 @@
-@Tags(['ex09'])
+@Tags(<String>['ex09'])
 
 import 'package:test/test.dart';
 
@@ -27,7 +27,7 @@ String swap(String a, int i, int j) {
 }
 
 List<String> permute(String word, int l, int r) {
-  List<String> output = [];
+  List<String> output = <String>[];
   if (l == r) {
     output.add(word);
   } else {
@@ -63,7 +63,7 @@ double possiblePermutations(String word, int n, int k) {
 
 List<int> charOccurrences(String word) {
   List<String> splitted = word.split('');
-  Map<String, int> occurrences = {};
+  Map<String, int> occurrences = <String, int>{};
 
   for (String char in splitted) {
     occurrences[char] =
@@ -86,8 +86,15 @@ void main() {
 
   test('deve retornar uma lista de permutações', () {
     String word = 'ABC';
-    List<String> expectedOutput = ['ABC', 'ACB', 'BAC', 'BCA', 'CBA', 'CAB'];
-    List<String> output = [];
+    List<String> expectedOutput = <String>[
+      'ABC',
+      'ACB',
+      'BAC',
+      'BCA',
+      'CBA',
+      'CAB',
+    ];
+    List<String> output = <String>[];
 
     output = permute(word, 0, word.length - 1);
     expect(output, expectedOutput);
@@ -97,7 +104,7 @@ void main() {
       'deve verificar se a quantidade de possiveis permutações é igual a quantidade permutada',
       () {
     String word = 'BANANA';
-    List<String> permutations = [];
+    List<String> permutations = <String>[];
     int output = 0;
 
     output = possiblePermutations(word, word.length, word.length - 1).toInt();

@@ -1,4 +1,4 @@
-@Tags(['ex08'])
+@Tags(<String>['ex08'])
 import 'package:test/test.dart';
 
 // Dado um List<int>
@@ -7,12 +7,18 @@ List<int> input = <int>[2, 1, 0, 9];
 // ["Há 2 itens", "Somente um item", "Nenhum item", "Há 9 itens"]
 
 List<String> elements(List<int> input) {
-  List<String> output = [];
+  List<String> output = <String>[];
 
   for (int i in input) {
-    if (i == 0) output.add("Nenhum item");
-    if (i == 1) output.add("Somente um item");
-    if (i > 1) output.add("Há $i itens");
+    if (i == 0) {
+      output.add("Nenhum item");
+    }
+    if (i == 1) {
+      output.add("Somente um item");
+    }
+    if (i > 1) {
+      output.add("Há $i itens");
+    }
   }
 
   return output;
@@ -20,7 +26,7 @@ List<String> elements(List<int> input) {
 
 void main() {
   test('deve retornar uma lista de String com elementos correspondentes', () {
-    List<String> output = [];
+    List<String> output = <String>[];
     List<String> expectedOutput = <String>[
       "Há 2 itens",
       "Somente um item",

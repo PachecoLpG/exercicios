@@ -1,13 +1,13 @@
-@Tags(['ex04'])
+@Tags(<String>['ex04'])
 import 'package:test/test.dart';
 
 List<Map<String, dynamic>> input = <Map<String, dynamic>>[
-  {'nome': 'Laranja', 'quantidade': 5},
-  {'nome': 'Laranja', 'quantidade': 2},
-  {'nome': 'Banana', 'quantidade': 7},
-  {'nome': 'Banana', 'quantidade': 8},
-  {'nome': 'Laranja', 'quantidade': 3},
-  {'nome': 'Manga', 'quantidade': 1},
+  <String, dynamic>{'nome': 'Laranja', 'quantidade': 5},
+  <String, dynamic>{'nome': 'Laranja', 'quantidade': 2},
+  <String, dynamic>{'nome': 'Banana', 'quantidade': 7},
+  <String, dynamic>{'nome': 'Banana', 'quantidade': 8},
+  <String, dynamic>{'nome': 'Laranja', 'quantidade': 3},
+  <String, dynamic>{'nome': 'Manga', 'quantidade': 1},
 ];
 // Criar uma função que retorne a soma das quantidades, dado o nome do item
 // Por exemplo:

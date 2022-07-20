@@ -1,4 +1,4 @@
-@Tags(['ex06'])
+@Tags(<String>['ex06'])
 import 'package:test/test.dart';
 
 // Criar uma classe que represente uma Entrega, com data de início e fim.
@@ -72,8 +72,10 @@ void main() {
   test('deve validar se entrega pode ser finalizada', () {
     Entrega entrega = Entrega();
 
-    expect(() => entrega.finishDelivery(),
-        throwsA('Não é possivel finalizar entregas não iniciadas'));
+    expect(
+      () => entrega.finishDelivery(),
+      throwsA('Não é possivel finalizar entregas não iniciadas'),
+    );
   });
 
   test('deve validar se a viagem pode ser iniciada', () {

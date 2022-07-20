@@ -1,4 +1,4 @@
-@Tags(['ex03'])
+@Tags(<String>['ex03'])
 import 'package:test/test.dart';
 
 // Dado um List<Map<String, dynamic>>
@@ -14,9 +14,12 @@ List<Map<String, dynamic>> input = <Map<String, dynamic>>[
 // [Primeiro, Segundo, Terceiro, Quarto, Quinto]
 
 List<String> orderedList({required List<Map<String, dynamic>> input}) {
-  List<String> list = [];
+  List<String> list = <String>[];
 
-  input.sort((a, b) => (a['data']).compareTo(b['data']));
+  input.sort(
+    (Map<String, dynamic> a, Map<String, dynamic> b) =>
+        (a['data']).compareTo(b['data']),
+  );
 
   for (Map<String, dynamic> element in input) {
     list.add(element['nome']);
@@ -27,8 +30,8 @@ List<String> orderedList({required List<Map<String, dynamic>> input}) {
 
 void main() {
   test('deve retornar ordenado por data', () {
-    List<String> output = [];
-    List<String> expectedOutput = [
+    List<String> output = <String>[];
+    List<String> expectedOutput = <String>[
       'Primeiro',
       'Segundo',
       'Terceiro',

@@ -1,14 +1,14 @@
-@Tags(['ex05'])
+@Tags(<String>['ex05'])
 import 'package:test/test.dart';
 
 // Dado um List<Map<String, dynamic>>
 List<Map<String, dynamic>> input = <Map<String, dynamic>>[
-  {'nome': 'Laranja', 'quantidade': 5},
-  {'nome': 'Laranja', 'quantidade': 2},
-  {'nome': 'Banana', 'quantidade': 7},
-  {'nome': 'Banana', 'quantidade': 8},
-  {'nome': 'Laranja', 'quantidade': 3},
-  {'nome': 'Manga', 'quantidade': 1},
+  <String, dynamic>{'nome': 'Laranja', 'quantidade': 5},
+  <String, dynamic>{'nome': 'Laranja', 'quantidade': 2},
+  <String, dynamic>{'nome': 'Banana', 'quantidade': 7},
+  <String, dynamic>{'nome': 'Banana', 'quantidade': 8},
+  <String, dynamic>{'nome': 'Laranja', 'quantidade': 3},
+  <String, dynamic>{'nome': 'Manga', 'quantidade': 1},
 ];
 
 // Criar uma classe para cada tipo de fruta e uma função que converta o input em uma List<Fruta>
@@ -28,12 +28,12 @@ class Fruta {
 
 List<T> genericMethod<T>(List<Fruta> list, String filter) {
   return list
-      .where((element) => element.nome.toLowerCase().contains(filter))
+      .where((Fruta element) => element.nome.toLowerCase().contains(filter))
       .toList() as List<T>;
 }
 
 List<Fruta> frutas(List<Map<String, dynamic>> input) {
-  List<Fruta> output = [];
+  List<Fruta> output = <Fruta>[];
 
   for (Map<String, dynamic> map in input) {
     output.add(
@@ -44,7 +44,7 @@ List<Fruta> frutas(List<Map<String, dynamic>> input) {
   return output;
 }
 
-List<Fruta> expectedOutput = [
+List<Fruta> expectedOutput = <Fruta>[
   Fruta(nome: 'Laranja', quantidade: 5),
   Fruta(nome: 'Laranja', quantidade: 2),
   Fruta(nome: 'Banana', quantidade: 7),
@@ -55,7 +55,7 @@ List<Fruta> expectedOutput = [
 
 void main() {
   test('deve converter o input para uma lista de frutas', () {
-    List<Fruta> output = [];
+    List<Fruta> output = <Fruta>[];
 
     output = frutas(input);
 

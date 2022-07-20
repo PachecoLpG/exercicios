@@ -1,4 +1,4 @@
-@Tags(['ex07'])
+@Tags(<String>['ex07'])
 import 'dart:math';
 
 import 'package:test/test.dart';

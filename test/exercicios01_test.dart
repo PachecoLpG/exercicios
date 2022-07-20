@@ -1,4 +1,4 @@
-@Tags(['ex01'])
+@Tags(<String>['ex01'])
 import 'package:test/test.dart';
 
 // Dado um Map<int,String>
@@ -11,10 +11,15 @@ Map<int, String> input = <int, String>{
 // Por exemplo, 'mercado' deve retornar
 // {200: Mercado DART, 300: SUPERMERCADO dart}
 
-Map<int, String> filteredMap(
-    {required String filter, required Map<int, String> input}) {
-  return Map.fromEntries(
-      input.entries.where((e) => e.value.toLowerCase().contains(filter)));
+Map<int, String> filteredMap({
+  required String filter,
+  required Map<int, String> input,
+}) {
+  return Map<int, String>.fromEntries(
+    input.entries.where(
+      (MapEntry<int, String> e) => e.value.toLowerCase().contains(filter),
+    ),
+  );
 }
 
 void main() {
