@@ -17,17 +17,15 @@ enum Color {
 Color nextColor(Color color) {
   if (color.index == Color.values.last.index) {
     return Color.values.first;
-  } else {
-    return Color.values[color.index + 1];
   }
+  return Color.values[color.index + 1];
 }
 
 Color beforeColor(Color color) {
   if (color.index == Color.values.first.index) {
     return Color.values.last;
-  } else {
-    return Color.values[color.index - 1];
   }
+  return Color.values[color.index - 1];
 }
 
 void main() {
