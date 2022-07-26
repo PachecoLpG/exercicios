@@ -1,3 +1,4 @@
+@Tags(<String>['ex10'])
 // Dado uma List<int>, criar uma função que construa uma árvore binária
 // com o primeiro valor sendo a raiz e
 // com os nós da subtree da esquerda sendo valores menores que o da raiz
@@ -5,6 +6,10 @@
 //
 // Criar funções que retornem a lista de nós em ordem, pré-ordem e pós-ordem
 // Por exemplo, para a seguinte List<int> de entrada
+
+// ignore_for_file: join_return_with_assignment
+
+import 'package:test/test.dart';
 
 List<int> input = <int>[30, 20, 40, 15, 25, 35, 50, 5, 18, 45, 60];
 // A sequencia será
@@ -56,14 +61,44 @@ List<int> postOrder(Node? node) {
   return output;
 }
 
+// Node generateTree(List<int> valores, int i) {
+//   Node root = Node();
+
+//   if (i < valores.length) {
+//     root = Node(valores[i]);
+
+//     root.esquerda = generateTree(valores, (i * 2) + 1);
+//     root.direita = generateTree(valores, (i * 2) + 2);
+//   }
+
+//   return root;
+// }
+
+void addNode(Node newNode, Node raiz) {
+  if (raiz.valor! > newNode.valor!) {
+    raiz.esquerda = newNode;
+  }
+  if (raiz.valor! <= newNode.valor!) {
+    raiz.direita = newNode;
+  }
+}
+
 void main() {
   List<int> inOrderList;
   List<int> preOrderList;
   List<int> postOrderList;
 
-  Node root = Node();
+  // Node? rootTeste = generateTree(input, 0);
+  Node rootTeste = Node(30);
+  for (int i = 0; i < input.length; i++) {
+    addNode(Node(input[i]), rootTeste);
+  }
 
-  root = Node(30);
+  print(rootTeste.valor);
+  print(rootTeste.direita!.valor);
+  print(rootTeste.esquerda!.valor);
+
+  Node root = Node(30);
   root.esquerda = Node(20);
   root.esquerda!.esquerda = Node(15);
   root.esquerda!.esquerda!.esquerda = Node(5);
@@ -86,4 +121,22 @@ void main() {
   print('POSTORDER');
   postOrderList = postOrder(root);
   print(postOrderList);
+
+  test('deve retornar a ordem correta do INORDER', () {
+    List<int> expectedOutput = <int>[5, 15, 18, 20, 25, 30, 35, 40, 45, 50, 60];
+
+    expect(inOrderList, expectedOutput);
+  });
+
+  test('deve retornar a ordem correta do PREORDER', () {
+    List<int> expectedOutput = <int>[30, 20, 15, 5, 18, 25, 40, 35, 50, 45, 60];
+
+    expect(preOrderList, expectedOutput);
+  });
+
+  test('deve retornar a ordem correta do POSTORDER', () {
+    List<int> expectedOutput = <int>[5, 18, 15, 25, 20, 35, 45, 60, 50, 40, 30];
+
+    expect(postOrderList, expectedOutput);
+  });
 }
