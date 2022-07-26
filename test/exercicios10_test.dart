@@ -14,21 +14,76 @@ List<int> input = <int>[30, 20, 40, 15, 25, 35, 50, 5, 18, 45, 60];
 
 //https://iq.opengenus.org/binary-tree-traversals-inorder-preorder-postorder/
 
-//TODO arvore;
-
+//TODO função para gerar arvore
 class Node {
-  int valor;
-  late Node esquerda = Node(valor: valor);
-  late Node direita = Node(valor: valor);
+  int? valor;
+  Node? esquerda;
+  Node? direita;
 
-  Node({required this.valor});
+  Node([this.valor]);
 }
 
-void ordened(List<int> input) {
-  input.sort();
-  print(input);
+List<int> inOrder(Node? node) {
+  List<int> output = <int>[];
+  if (node == null) {
+    return output;
+  }
+  output = output + inOrder(node.esquerda);
+  output.add(node.valor!);
+  output = output + inOrder(node.direita);
+  return output;
 }
 
-void preOrdened(List<int> input, Node root, int start) {}
+List<int> preOrder(Node? node) {
+  List<int> output = <int>[];
+  if (node == null) {
+    return output;
+  }
+  output.add(node.valor!);
+  output = output + preOrder(node.esquerda);
+  output = output + preOrder(node.direita);
+  return output;
+}
 
-void main() {}
+List<int> postOrder(Node? node) {
+  List<int> output = <int>[];
+  if (node == null) {
+    return output;
+  }
+  output = output + postOrder(node.esquerda);
+  output = output + postOrder(node.direita);
+  output.add(node.valor!);
+  return output;
+}
+
+void main() {
+  List<int> inOrderList;
+  List<int> preOrderList;
+  List<int> postOrderList;
+
+  Node root = Node();
+
+  root = Node(30);
+  root.esquerda = Node(20);
+  root.esquerda!.esquerda = Node(15);
+  root.esquerda!.esquerda!.esquerda = Node(5);
+  root.esquerda!.esquerda!.direita = Node(18);
+  root.esquerda!.direita = Node(25);
+  root.direita = Node(40);
+  root.direita!.esquerda = Node(35);
+  root.direita!.direita = Node(50);
+  root.direita!.direita!.esquerda = Node(45);
+  root.direita!.direita!.direita = Node(60);
+
+  print('INORDER');
+  inOrderList = inOrder(root);
+  print(inOrderList);
+
+  print('PREORDER');
+  preOrderList = preOrder(root);
+  print(preOrderList);
+
+  print('POSTORDER');
+  postOrderList = postOrder(root);
+  print(postOrderList);
+}
