@@ -9,6 +9,8 @@
 
 import 'dart:math';
 
+import 'package:test/test.dart';
+
 int a1 = -5;
 int a2 = 5;
 double soma1 = 0;
@@ -42,5 +44,11 @@ void secante() {
 }
 
 void main() {
-  secante();
+  test(
+    '',
+    () {
+      secante();
+    },
+    skip: true,
+  );
 }
