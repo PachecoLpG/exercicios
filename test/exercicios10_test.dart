@@ -18,8 +18,6 @@ List<int> input = <int>[30, 20, 40, 15, 25, 35, 50, 5, 18, 45, 60];
 // Pós-ordem: [5, 18, 15, 25, 20, 35, 45, 60, 50, 40, 30]
 
 //https://iq.opengenus.org/binary-tree-traversals-inorder-preorder-postorder/
-
-//TODO função para gerar arvore
 class Node {
   int? valor;
   Node? esquerda;
@@ -61,25 +59,19 @@ List<int> postOrder(Node? node) {
   return output;
 }
 
-// Node generateTree(List<int> valores, int i) {
-//   Node root = Node();
-
-//   if (i < valores.length) {
-//     root = Node(valores[i]);
-
-//     root.esquerda = generateTree(valores, (i * 2) + 1);
-//     root.direita = generateTree(valores, (i * 2) + 2);
-//   }
-
-//   return root;
-// }
-
-void addNode(Node newNode, Node raiz) {
-  if (raiz.valor! > newNode.valor!) {
-    raiz.esquerda = newNode;
-  }
-  if (raiz.valor! <= newNode.valor!) {
-    raiz.direita = newNode;
+void addNode(Node atual, Node newNode) {
+  if (newNode.valor! < atual.valor!) {
+    if (atual.esquerda == null) {
+      atual.esquerda = newNode;
+    } else {
+      addNode(atual.esquerda!, newNode);
+    }
+  } else {
+    if (atual.direita == null) {
+      atual.direita = newNode;
+    } else {
+      addNode(atual.direita!, newNode);
+    }
   }
 }
 
@@ -88,27 +80,11 @@ void main() {
   List<int> preOrderList;
   List<int> postOrderList;
 
-  // Node? rootTeste = generateTree(input, 0);
-  Node rootTeste = Node(30);
-  for (int i = 0; i < input.length; i++) {
-    addNode(Node(input[i]), rootTeste);
-  }
-
-  print(rootTeste.valor);
-  print(rootTeste.direita!.valor);
-  print(rootTeste.esquerda!.valor);
-
   Node root = Node(30);
-  root.esquerda = Node(20);
-  root.esquerda!.esquerda = Node(15);
-  root.esquerda!.esquerda!.esquerda = Node(5);
-  root.esquerda!.esquerda!.direita = Node(18);
-  root.esquerda!.direita = Node(25);
-  root.direita = Node(40);
-  root.direita!.esquerda = Node(35);
-  root.direita!.direita = Node(50);
-  root.direita!.direita!.esquerda = Node(45);
-  root.direita!.direita!.direita = Node(60);
+
+  for (int i = 1; i < input.length; i++) {
+    addNode(root, Node(input[i]));
+  }
 
   print('INORDER');
   inOrderList = inOrder(root);
