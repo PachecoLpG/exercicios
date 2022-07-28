@@ -12,19 +12,12 @@ import 'package:test/test.dart';
 class Customer {
   int id;
   String name;
-  List<Order> orders;
+  List<Order> orders = <Order>[];
 
   Customer({
     required this.id,
     required this.name,
-    this.orders = const <Order>[],
   });
-
-  // Map<String, dynamic> toJson() => <String, dynamic>{
-  //       'id': id,
-  //       'name': name,
-  //       'orders': orders,
-  //     };
 }
 
 /// * [Order]
@@ -39,11 +32,12 @@ class Order {
 
   Order({required this.id});
 
-  // Map<String, dynamic> toJson() => <String, dynamic>{
-  //       'id': id,
-  //       'items': items,
-  //       'totalPrice': totalPrice,
-  //     };
+  double calculateTotalPrice() {
+    for (Item i in items) {
+      totalPrice += i.quantity * i.unityPrice;
+    }
+    return totalPrice;
+  }
 }
 
 /// * [Item]
@@ -53,7 +47,6 @@ class Order {
 
 class Item {
   String name;
-
   int quantity;
   double unityPrice;
 
@@ -62,13 +55,6 @@ class Item {
     required this.quantity,
     required this.unityPrice,
   });
-
-  // Map<String, dynamic> toJson() => <String, dynamic>{
-  //       'name': name,
-  //       'id': id,
-  //       'quantity': quantity,
-  //       'unitPrice': unityPrice,
-  //     };
 }
 
 /// * [Database]
@@ -86,7 +72,14 @@ class Database {
   }
 
   void addItem({required Item item, required int orderId}) {
-    items.add(item);
+    for (Customer c in customers) {
+      for (Order o in c.orders) {
+        if (orderId == o.id) {
+          items.add(item);
+          o.items.add(item);
+        }
+      }
+    }
   }
 
   void addOrder({required Order order, required int customerId}) {
@@ -97,9 +90,29 @@ class Database {
     }
   }
 
-  Map<String, dynamic> toJson() => <String, List<dynamic>>{
-        'customers': customers,
-        'items': items,
+  Json toJson() => <String, dynamic>{
+        'customers': <dynamic>[
+          for (Customer c in customers)
+            <String, dynamic>{
+              'id': c.id,
+              'name': c.name,
+              'orders': <dynamic>[
+                for (Order o in c.orders)
+                  <String, dynamic>{
+                    'id': o.id,
+                    'items': <dynamic>[
+                      for (Item i in o.items)
+                        <String, dynamic>{
+                          'name': i.name,
+                          'quantity': i.quantity,
+                          'unityPrice': i.unityPrice,
+                        }
+                    ],
+                    'totalPrice': o.calculateTotalPrice(),
+                  }
+              ]
+            }
+        ],
       };
 }
 
@@ -117,38 +130,65 @@ typedef Json = Map<String, dynamic>;
 /// `{customers: [{id: 1, name: CustomerName, orders: [{id: 1, items: [{name: ItemName, quantity: 2, unityPrice: 50}], totalPrice: 100}]}]}`
 
 void main() {
-  test(
-    '',
-    () {
-      final Database db = Database();
-      db.addCustomer(customer: Customer(id: 1, name: 'Alfa'));
-      db.addCustomer(customer: Customer(id: 2, name: 'Bravo'));
-      // TotalPrice: 250
+  final Database db = Database();
+  // db.addCustomer(customer: Customer(id: 1, name: 'Alfa'));
+  // db.addCustomer(customer: Customer(id: 2, name: 'Bravo'));
+  // // TotalPrice: 250
+  // db.addOrder(order: Order(id: 1), customerId: 1);
+  // db.addItem(
+  //   item: Item(name: 'Alfa-order1-itemA', quantity: 2, unityPrice: 50),
+  //   orderId: 1,
+  // );
+  // db.addItem(
+  //   item: Item(name: 'Alfa-order1-itemB', quantity: 1, unityPrice: 150),
+  //   orderId: 1,
+  // );
+  // // TotalPrice: 30
+  // db.addOrder(order: Order(id: 2), customerId: 1);
+  // db.addItem(
+  //   item: Item(name: 'Alfa-order2-itemA', quantity: 1, unityPrice: 30),
+  //   orderId: 2,
+  // );
+  // // TotalPrice: 100
+  // db.addOrder(order: Order(id: 3), customerId: 2);
+  // db.addItem(
+  //   item: Item(name: 'Bravo-order3-itemA', quantity: 5, unityPrice: 20),
+  //   orderId: 3,
+  // );
 
-      db.addOrder(order: Order(id: 1), customerId: 1);
-      db.addItem(
-        item: Item(name: 'Alfa-order1-itemA', quantity: 50, unityPrice: 10),
-        orderId: 1,
-      );
-      db.addItem(
-        item: Item(name: 'Alfa-order1-itemB', quantity: 150, unityPrice: 0.2),
-        orderId: 1,
-      );
-      // TotalPrice: 30
-      db.addOrder(order: Order(id: 2), customerId: 1);
-      db.addItem(
-        item: Item(name: 'Alfa-order2-itemA', quantity: 30, unityPrice: 0.3),
-        orderId: 2,
-      );
-      // TotalPrice: 100
-      db.addOrder(order: Order(id: 3), customerId: 2);
-      db.addItem(
-        item: Item(name: 'Bravo-order3-itemA', quantity: 20, unityPrice: 17),
-        orderId: 3,
-      );
-      Json output = db.toJson();
-      print(output);
-    },
-    skip: true,
+  db.addCustomer(customer: Customer(id: 1, name: 'CustomerName'));
+  db.addOrder(order: Order(id: 1), customerId: 1);
+  db.addItem(
+    item: Item(name: 'ItemName', quantity: 2, unityPrice: 50),
+    orderId: 1,
   );
+
+  Json output = db.toJson();
+  print(output);
+
+  test('o metodo toJson deve retornar o esperado', () {
+    Json expectedOutput = <String, dynamic>{
+      'customers': <dynamic>[
+        <String, dynamic>{
+          'id': 1,
+          'name': 'CustomerName',
+          'orders': <dynamic>[
+            <String, dynamic>{
+              'id': 1,
+              'items': <dynamic>[
+                <String, dynamic>{
+                  'name': 'ItemName',
+                  'quantity': 2,
+                  'unityPrice': 50
+                }
+              ],
+              'totalPrice': 100
+            }
+          ]
+        }
+      ]
+    };
+
+    expect(output, expectedOutput);
+  });
 }
