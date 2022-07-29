@@ -86,17 +86,17 @@ void main() {
     addNode(root, Node(input[i]));
   }
 
-  print('INORDER');
+  // print('INORDER');
   inOrderList = inOrder(root);
-  print(inOrderList);
+  // print(inOrderList);
 
-  print('PREORDER');
+  // print('PREORDER');
   preOrderList = preOrder(root);
-  print(preOrderList);
+  // print(preOrderList);
 
-  print('POSTORDER');
+  // print('POSTORDER');
   postOrderList = postOrder(root);
-  print(postOrderList);
+  // print(postOrderList);
 
   test('deve retornar a ordem correta do INORDER', () {
     List<int> expectedOutput = <int>[5, 15, 18, 20, 25, 30, 35, 40, 45, 50, 60];
