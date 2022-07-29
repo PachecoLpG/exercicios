@@ -24,7 +24,6 @@ import 'package:test/test.dart';
 
 final RegExp regEx = RegExp(r'\d{3}\.\d{3}\.\d{3}-\d{2}');
 
-//TODO refazer
 String convertToString(String input) {
   if (input.length < 11) {
     throw Error();
@@ -36,17 +35,23 @@ String convertToString(String input) {
 
   List<String> output = input.split('');
 
-  for (int i = 3; i < input.length - 2; i + 3) {}
+  output.insert(3, '.');
 
-  return 'a';
+  output.insert(7, '.');
+
+  output.insert(output.length - 2, '-');
+
+  return output.join('');
 }
 
-//TODO refazer tb
 String listToCpf(List<int> listInput) {
-  if (listInput.length < 12 || listInput.length > 11) {
+  if (listInput.length < 11 || listInput.length > 11) {
     throw Error();
   }
-  return convertToString(listInput.toString()).toString();
+
+  String temp = listInput.join('').toString();
+  print(temp);
+  return convertToString(temp);
 }
 
 List<int> cpfCompleto(List<int> listInput) {
@@ -138,7 +143,6 @@ List<int> generateCpf() {
 
   generatedList.add(digitoVerificadorDois);
 
-  print(generatedList);
   return generatedList;
 }
 
@@ -146,14 +150,22 @@ void main() {
   test(
     'deve converter corretamente a string do cpf',
     () {
-      String sCpf = '202.561.560-42';
+      String expectedOutput = '202.561.560-42';
+      String cpfConvertido = convertToString('20256156042');
 
-      String cpfConvertido = convertToString(sCpf).toString();
-
-      expect(cpfConvertido, equals('20256156042'));
+      expect(cpfConvertido, expectedOutput);
     },
     skip: false,
   );
+
+  test('deve converter uma lista de inteiros em String', () {
+    List<int> input = <int>[2, 0, 2, 5, 6, 1, 5, 6, 0, 4, 2];
+    String cpf = '';
+    String expectedOutput = '202.561.560-42';
+    cpf = listToCpf(input);
+
+    expect(cpf, expectedOutput);
+  });
 
   test('deve retornar um cpf completo a partir de 9 numeros', () {
     List<int> cpf = <int>[6, 9, 1, 7, 5, 4, 3, 2, 0];
@@ -170,8 +182,11 @@ void main() {
     expect(validateCpf(cpf), isTrue);
   });
 
+//TODO verificar por que falha mesmo gerando cpfs validos
   test('deve gerar um cpf aleatoriamente', () {
     List<int> cpfGerado = generateCpf();
+
+    print(cpfGerado);
 
     expect(validateCpf(cpfGerado), isTrue);
   });
