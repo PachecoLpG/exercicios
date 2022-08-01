@@ -50,7 +50,8 @@ void main() {
   result3 = result3 * 100;
 
   print(
-      'Chance de duas pessoas possuirem a mesma data de aniversario em um determinado grupo');
+    'Chance de duas pessoas possuirem a mesma data de aniversario em um determinado grupo',
+  );
   print('Grupo de 23 pessoas a chance é de: ${result1.toStringAsFixed(2)}%');
   print('Grupo de 50 pessoas a chance é de: ${result2.toStringAsFixed(2)}%');
   print('Grupo de 100 pessoas a chance é de: ${result3.toStringAsFixed(5)}%');
