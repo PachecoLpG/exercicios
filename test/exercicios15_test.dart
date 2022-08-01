@@ -3,6 +3,7 @@
 import 'dart:math';
 
 import 'package:test/scaffolding.dart';
+import 'package:test/test.dart';
 
 /// Problema do aniversário
 ///
@@ -18,20 +19,39 @@ import 'package:test/scaffolding.dart';
 /// Compare o resultado da primeira função com a segunda
 ///
 
-num bDayProb(int n) => factorial(365) / ((pow(365, n)) * factorial(365 - n));
+num bDayProb(int n) {
+  num p = pow((1 / 365), n);
 
-int factorial(int n) {
-  if (n == 0) {
-    return 1;
+  for (int i = (366 - n); i < 366; i++) {
+    p *= i;
   }
-  return n * factorial(n - 1);
+
+  return 1 - p;
 }
 
-void main() {
-  test('deve calcular corretamente a probabilidade', () {
-    int p = 3;
-    num result = bDayProb(p);
+// int factorial(int n) {
+//   if (n == 0) {
+//     return 1;
+//   }
+//   return n * factorial(n - 1);
+// }
 
-    print(result.toStringAsFixed(5));
-  });
+void main() {
+  int p1 = 23; //Grupo com 23 pessoas
+  int p2 = 50; //Grupo com 50 pessoas
+  int p3 = 100; //Grupo com 100 pessoas
+
+  num result1 = bDayProb(p1);
+  num result2 = bDayProb(p2);
+  num result3 = bDayProb(p3);
+
+  result1 = result1 * 100;
+  result2 = result2 * 100;
+  result3 = result3 * 100;
+
+  print(
+      'Chance de duas pessoas possuirem a mesma data de aniversario em um determinado grupo');
+  print('Grupo de 23 pessoas a chance é de: ${result1.toStringAsFixed(2)}%');
+  print('Grupo de 50 pessoas a chance é de: ${result2.toStringAsFixed(2)}%');
+  print('Grupo de 100 pessoas a chance é de: ${result3.toStringAsFixed(5)}%');
 }
