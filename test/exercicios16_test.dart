@@ -16,24 +16,23 @@
 import 'dart:convert';
 import 'dart:io';
 
+//TODO terminar
+
 void main() async {
   File file = File('test/files/alturas.dat');
   Stream<String> lines =
       file.openRead().transform(utf8.decoder).transform(LineSplitter());
-  Map<DateTime, double> map = <DateTime, double>{};
+  List<String> datas = <String>[];
+  List<double> valores = <double>[];
+  Map teste = {};
 
   await for (String line in lines) {
     List<String> splitted = line.split('	');
-    DateTime dateTime = DateTime(
-      int.parse(splitted[0]),
-      int.parse(splitted[1]),
-      int.parse(splitted[2]),
-      int.parse(splitted[3]),
-      int.parse(splitted[4]),
-    );
-    print("$dateTime - ${splitted.last}");
-    map.addAll(<DateTime, double>{dateTime: double.parse(splitted.last)});
+    String data =
+        '${splitted[0]} ${splitted[1]} ${splitted[2]} ${splitted[3]} ${splitted[4]} ';
+    datas.add(data);
+    valores.add(double.parse(splitted.last));
+
+    print("$data - ${splitted.last}");
   }
-  print(map);
-  double media = 0;
 }
