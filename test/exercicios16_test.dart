@@ -24,7 +24,6 @@ void main() async {
       file.openRead().transform(utf8.decoder).transform(LineSplitter());
   List<String> datas = <String>[];
   List<double> valores = <double>[];
-  Map teste = {};
 
   await for (String line in lines) {
     List<String> splitted = line.split('	');
