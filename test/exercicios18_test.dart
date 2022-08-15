@@ -1,5 +1,4 @@
 import 'package:meta/meta.dart';
-import 'dart:math';
 
 /// Desenvolva uma função que, baseado nas regras do truco gaudério:
 /// - Ordene as cartas da menor para a maior - ja é gerado nessa ordenação

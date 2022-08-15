@@ -16,6 +16,8 @@ import 'dart:math';
 /// do atacante para o defensor e muda-se a cor do território
 ///
 
+//TODO terminar
+
 enum Color {
   red,
   green,
@@ -50,7 +52,26 @@ int throwDice() {
   return (Random().nextInt(5)) + 1;
 }
 
-void war({required Territorio team01, required Territorio team02}) {}
+void war({required Territorio team01, required Territorio team02}) {
+  print(team01.exercicitos);
+  print(team01.cor.nome);
+
+  print(team02.exercicitos);
+  print(team02.cor.nome);
+
+  List<int> jogadaTeam01 = <int>[];
+  List<int> jogadaTeam02 = <int>[];
+
+  for (int i = 1; i <= 3; i++) {
+    jogadaTeam01.add(throwDice());
+  }
+
+  print(jogadaTeam01);
+  for (int i = 1; i <= 2; i++) {
+    jogadaTeam02.add(throwDice());
+  }
+  print(jogadaTeam02);
+}
 
 void main() {
   Territorio team01 = Territorio(exercicitos: 5, cor: Color.red);
